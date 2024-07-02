@@ -14,8 +14,8 @@ const Details = ({position, company, companyLink, time, address, work})=>{
                 whileInView={{y:0}}
                 transition={{duration:0.5, type:"spring"}}
             >
-                <h3 className='capitalize font-bold  text-2xl'>{position} {' '} <a href={companyLink} className='text-primary capitalize' target='blank'>@{company}</a></h3>
-                <span className='capitalize font-medium text-dark/75'>
+                <h3 className='capitalize font-bold  text-2xl'>{position} {' '} <a href={companyLink} className='text-primary capitalize dark:text-primaryDark' target='blank'>@{company}</a></h3>
+                <span className='capitalize font-medium text-dark/75 dark:text-light/75'>
                     {time} | {address}
                 </span>
                 <p className='font-medium w-full'>
@@ -43,7 +43,7 @@ const Experiance = () => {
                     scaleY: scrollYProgress
                 }}
                  
-                className='absolute left-9 top-0 w-[4px] h-full bg-dark origin-top' 
+                className='absolute left-9 top-0 w-[4px] h-full bg-dark origin-top dark:bg-light' 
             />
             <ul className='w-full flex flex-col items-start justify-between ml-4'>
                 <Details position={'Full Stack Web Developer'} company={'InSecSys'} time={'Sept-2023 to Feb-2024'} address={'NIBM -Corinthians Road,Undri, Pune, Maharashtra, India - 411060'} companyLink={'https://www.insecsys.com/'} work={`Collaborated on Organicsattva.com, enhancing functionality with HTML, CSS, JavaScript, PHP, and SQL, implementing key features like user registration and dynamic content loading. Designed and developed the 30+ page responsive InSecSys.com using Laravel's Blade framework, demonstrating full-stack proficiency and attention to detail.`}/>

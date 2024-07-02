@@ -5,33 +5,43 @@ import Image from 'next/image'
 import React from 'react'
 import { GithubIcon } from '@/components/Icons'
 import Head from 'next/head'
+import {motion} from 'framer-motion'
 import project1 from '../../public/images/projects/crypto-screener-cover-image.jpg'
+
+const FramerImage = motion(Image)
 
 const FeaturedProject = ({type, title, summery, img, link, github})=>{
     return(
         <div>
-            <article className='w-full flex items-center justify-between rounded-br-2xl rounded-3xl border border-solid border-dark bg-light p-12 shadow-2xl relative'>
+            <article className='w-full flex items-center justify-between rounded-br-2xl rounded-3xl border border-solid border-dark bg-light p-12 shadow-2xl relative dark:border-light dark:bg-dark'>
             
-                <div className='absolute top-0 -right-3 -z-10 w-[101%] h-[103%] rounded-[2.5rem] bg-dark rounded-br-3xl'/>
+                <div className='absolute top-0 -right-3 -z-10 w-[101%] h-[103%] rounded-[2.5rem] bg-dark rounded-br-3xl dark:bg-light'/>
                  
                 <Link href={link} target='blank' 
                  className='w-1/2 cursor-pointer overflow-hidden rounded-lg'
                 >
                     
-                    <Image src={img} alt={title} className='w-full h-auto'/>
+                    <FramerImage src={img} alt={title} className='w-full h-auto'
+                        whileHover={{scale:1.05}}
+                        transition={{duration:0.2}}
+                        priority
+                        sizes='(max-width: 768px) 100vw,
+                                (max-width:1200px) 50vw,
+                                50vw' 
+                    />
                 </Link>
                 <div className='w-1/2 flex flex-col items-start justify-between pl-6'>
-                    <span className='text-primary font-medium text-xl'>
+                    <span className='text-primary dark:text-primaryDark font-medium text-xl'>
                         {type}
                     </span>
 
                     <Link href={link} target='blank' className='hover: underline-offset-2'>
-                        <h2 className='my-2 w-full text-left text-4xl font-bold'>
+                        <h2 className='my-2 w-full text-left text-4xl font-bold hover:underline  dark:text-light'>
                             {title}
                         </h2>
                     </Link>
 
-                    <p className='my-2 font-medium text-dark padding-12'>
+                    <p className='my-2 font-medium text-dark padding-12 dark:text-light'>
                         {summery}
                     </p>
 
@@ -39,7 +49,7 @@ const FeaturedProject = ({type, title, summery, img, link, github})=>{
                         <Link href={github} target='blank' className='w-10'>
                             <GithubIcon />
                         </Link>
-                        <Link href={link} target='blank' className='ml-4 rounded-lg bg-dark text-light p-2 px-6 text-lg font-semibold'>
+                        <Link href={link} target='blank' className='ml-4 rounded-lg bg-dark text-light p-2 px-6 text-lg font-semibold dark:bg-light dark:text-dark'>
                             Visit Projects
                         </Link>
                     </div>
@@ -52,27 +62,35 @@ const FeaturedProject = ({type, title, summery, img, link, github})=>{
 const Project = ({title, type, img, link, github})=>{
     return(
         <>
-            <article className='w-full flex items-center justify-center rounded-2xl border border-solid border-dark bg-light relative p-6 flex-col'>
-                <div className='absolute top-0 -right-3 -z-10 w-[101%] h-[103%] rounded-[2rem] bg-dark rounded-br-3xl'/>
+            <article className='w-full flex items-center justify-center rounded-2xl border border-solid border-dark bg-light relative p-6 flex-col dark:border-light dark:bg-dark'>
+                <div className='absolute top-0 -right-3 -z-10 w-[101%] h-[103%] rounded-[2rem] bg-dark rounded-br-3xl dark:bg-light'/>
                 <Link href={link} target='blank' 
                  className='w-full cursor-pointer overflow-hidden rounded-lg'
                 >
-                    <Image src={img} alt={title} className='w-full h-auto'/>
+                    <FramerImage src={img} alt={title} className='w-full h-auto'
+                    whileHover={{scale:1.05}}
+                    transition={{duration:0.2}}
+
+                    priority
+                    sizes='(max-width: 768px) 100vw,
+                            (max-width:1200px) 50vw,
+                            50vw' 
+                    />
                 </Link>
                 <div className='w-full flex flex-col items-start justify-between pt-4'>
-                    <span className='text-primary font-medium text-xl'>
+                    <span className='text-primary dark:text-primaryDark font-medium text-xl'>
                         {type}
                     </span>
 
                     <Link href={link} target='blank' className='hover: underline-offset-2'>
-                        <h2 className='my-2 w-full text-left text-3xl font-bold'>
+                        <h2 className='my-2 w-full text-left text-3xl font-bold hover:underline dark:text-light'>
                             {title}
                         </h2>
                     </Link>
 
 
                     <div className='w-full mt-2 flex items-center justify-between'>
-                        <Link href={link} target='blank' className='underline px-6 text-lg font-semibold'>
+                        <Link href={link} target='blank' className='underline px-6 text-lg font-semibold dark:text-light'>
                                 Visit 
                         </Link>
                         <Link href={github} target='blank' className='w-8'>
@@ -92,7 +110,7 @@ const projects = () => {
             <title>takemeforward | Projects page</title>
             <meat name="description" content="any description" />
         </Head>
-        <main className='justify-center w-full mb-16 flex flex-col items-center'>
+        <main className='justify-center w-full mb-16 flex flex-col items-center dark:text-light'>
             <Layout className={'pt-16'}>
                 <AnimatedText text={'Imagination Trumps Knowledge!'} className='mb-16'/>
 

@@ -15,7 +15,7 @@ const Details = ({type, time, place, info})=>{
                 transition={{duration:0.5, type:"spring"}}
             >
                 <h3 className='capitalize font-bold  text-2xl'>{type}</h3>
-                <span className='capitalize font-medium text-dark/75'>
+                <span className='capitalize font-medium text-dark/75 dark:text-light/75'>
                     {time} | {place}
                 </span>
                 <p className='font-medium w-full'>
@@ -35,7 +35,7 @@ const Education = () => {
 
   return (
     <div className='my-64'>
-        <h2 className='text-center font-bold text-8xl mb-32 w-full'>Education</h2>
+        <h2 className='text-center font-bold text-8xl mb-32 w-full lg:mb-20 sm:mb-8 lg:!text-7xl sm:!text-6xl xs:!text-4xl'>Education</h2>
     
         <div ref={ref} className='w-[75%] mx-auto relative'>
             <motion.div
@@ -43,7 +43,7 @@ const Education = () => {
                     scaleY: scrollYProgress
                 }}
                  
-                className='absolute left-9 top-0 w-[4px] h-full bg-dark origin-top' 
+                className='absolute left-9 top-0 w-[4px] h-full bg-dark dark:bg-light origin-top' 
             />
             <ul className='w-full flex flex-col items-start justify-between ml-4'>
                 <Details type={'Master Of Computer Application(MCA)'} time={'Aug-2022 to Present'} place={"NIT Agartala, Tripura 799046"} info={'Pursuing a Master of Computer Applications, encompassing all fundamental computer science courses alongside modern CS subjects. This program provides a comprehensive foundation in both traditional and contemporary aspects of computer science.'}/>

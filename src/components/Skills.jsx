@@ -8,12 +8,11 @@ const Skill = ({name, x, y})=>{
         justify-center rounded-full 
         font-semibold bg-dark text-light 
         py-3 px-6 shadow-dark
-        absolute
+        absolute dark:bg-light dark:text-dark dark:shadow-light
         '
             whileHover={{scale:1.05}}
             initial={{x:0, y:0}}
-            whileInView={{x:x, y:y}}
-            transition={{duration:1.5}}
+            whileInView={{x:x, y:y, transition:{duration:1.5}}}
             viewport={{once:true}}
         >
             {name}
@@ -23,8 +22,8 @@ const Skill = ({name, x, y})=>{
 const Skills = () => {
   return (
     <>
-    <h2 className='font-bold text-8xl mt-64 w-full text-center'>Skills</h2>
-    <div className='w-full h-screen relative flex items-center justify-center rounded-full bg-circularLight'>
+    <h2 className='font-bold text-8xl mt-64 w-full text-center lg:mt-32 sm:mb-8 lg:!text-7xl sm:!text-6xl xs:!text-4xl'>Skills</h2>
+    <div className='w-full h-screen relative flex items-center justify-center rounded-full bg-circularLight dark:bg-circularDark'>
         <Skill name="Web" x={'0vw'} y={'0vh'}/>
         <Skill name="Html" x={'-20vw'} y={'2vw'}/>
         <Skill name="css" x={'20vw'} y={'6vw'}/>
@@ -36,8 +35,6 @@ const Skills = () => {
         <Skill name="ExpressJs" x={'-25vw'} y={'-18vh'} />
         <Skill name="MongoDb" x={'18vw'} y={'28vh'}/>
         <Skill name="MySql" x={'-24vw'} y={'28vh'} />
-        
-
     </div>
     
     </>

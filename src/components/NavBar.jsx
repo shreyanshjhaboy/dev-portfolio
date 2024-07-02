@@ -1,9 +1,10 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
 import Logo from './Logo'
 import { useRouter } from 'next/router'
-import  { DribbbleIcon, GithubIcon, LinkedInIcon, PinterestIcon, TwitterIcon } from './Icons'
+import  { GithubIcon, LinkedInIcon, MoonIcon, PinterestIcon, SunIcon, TwitterIcon } from './Icons'
 import {motion} from 'framer-motion'
+import useThemeSwitcher from './hooks/useThemeSwitcher'
 const CustomLink = ({href, title, className=""})=>{
     const router = useRouter();
 
@@ -13,43 +14,127 @@ const CustomLink = ({href, title, className=""})=>{
             <span className={`h-[1px] inline-block
              bg-dark absolute left-0 -bottom-0.5
              group-hover:w-full transition-[width] ease duration-300
-              ${router.asPath === href ? 'w-full': 'w-0'}
-              `}
+              ${router.asPath==='/'&&href==='/'?'w-full':router.asPath === ("/"+href) ? 'w-full': 'w-0'}
+              dark:bg-light`}
                 
             >&nbsp;</span>
         </Link>
     )
 }
 
+const CustomMobileLink = ({href, title, className="", toggle})=>{
+    const router = useRouter();
+    const handleClick = ()=>{
+        toggle();
+        router.push(href)
+    }
+
+    return(
+        <button className={`${className} relative group my-2 text-light dark:text-dark `} onClick={handleClick}>
+            {title}
+            <span className={`h-[2px] inline-block
+             bg-light absolute left-0 -bottom-0.5
+             group-hover:w-full transition-[width] ease duration-300
+              ${router.asPath==='/'&&href==='/'?'w-full':router.asPath === ("/"+href) ? 'w-full': 'w-0'}
+              dark:bg-dark`}
+                
+            >&nbsp;</span>
+        </button>
+    )
+}
+
 const NavBar = () => {
+    const [mode, setMode] = useThemeSwitcher();
+    const [isOpen, setIsOpen] = useState(false)
+
+
+    const handleClick = ()=>{
+        setIsOpen(!isOpen)
+    }
   return (
     <header 
-        className='w-full px-32 py-8 font-medium flex items-center justify-between'
+        className='w-full px-32 py-8 font-medium flex items-center justify-between relative dark:text-light z-10 lg:px-16 md:px-12 sm:px-8'
     >
+        <button className='flex-col justify-center items-center hidden lg:flex' onClick={handleClick}>
+            <span className={`bg-dark dark:bg-light transition-all duration-300 block h-0.5 w-6 rounded-xl -translate-y-0.5 ${isOpen? 'rotate-45 translate-y-1': '-translate-y-0.5'}`}></span>
+            <span className={`bg-dark dark:bg-light transition-all duration-300 block h-0.5 w-6 rounded-xl my-0.5 ${isOpen ? 'opacity-0':'opacity-100'}`}></span>
+            <span className={`bg-dark dark:bg-light transition-all duration-300 block h-0.5 w-6 rounded-xl translate-y-0.5 ${isOpen? '-rotate-45 -translate-y-1': 'translate-y-0.5'}`}></span>
+        </button>
 
-        <nav>
-            <CustomLink href={'/'} title={'Home'} className={'mr-4'}/>
-            <CustomLink href={'about'} title={'About'} className={'mx-4'}/>
-            <CustomLink href={'projects'}title={'Projects'}  className={'mx-4'}/>
-            <CustomLink href={'articles'} title={'Articles'} className={'ml-4'}/>
-        </nav>
-        <nav className='flex items-center justify-center flex-wrap space-x-3'>
+        <div className='w-full flex justify-between items-center lg:hidden'>
+            <nav>
+                <CustomLink href={'/'} title={'Home'} className={'mr-4'}/>
+                <CustomLink href={'about'} title={'About'} className={'mx-4'}/>
+                <CustomLink href={'projects'}title={'Projects'}  className={'mx-4'}/>
+                <CustomLink href={'articles'} title={'Articles'} className={'ml-4'}/>
+            </nav>
+            <nav className='flex items-center justify-center flex-wrap space-x-3'>
             <motion.a href={'www.twitter.com'} target={'blank'} whileHover={{y:-4}} whileTap={{scale:.9}}>
-                <TwitterIcon className={'w-5 mr-2'} />
+                    <LinkedInIcon className={'w-5 mr-2'} />
             </motion.a>
+            
             <motion.a href={'www.twitter.com'} target={'blank'} whileHover={{y:-4}} whileTap={{scale:.9}}>
                 <GithubIcon className={'w-5 mx-2'} />
             </motion.a>
+
             <motion.a href={'www.twitter.com'} target={'blank'} whileHover={{y:-4}} whileTap={{scale:.9}}>
-                <LinkedInIcon className={'w-5 mx-2'} />
+                <TwitterIcon className={'w-5 mx-2'} />
             </motion.a>
-            <motion.a href={'www.twitter.com'} target={'blank'} whileHover={{y:-4}} whileTap={{scale:.9}}>
-                <PinterestIcon className={'w-5 mx-2'} />
-            </motion.a>
-            <motion.a href={'www.twitter.com'} target={'blank'} whileHover={{y:-4}} whileTap={{scale:.9}}>
-                <DribbbleIcon className={'w-5 ml-2'} />
-            </motion.a>
+
+
+            <button 
+                onClick={()=> setMode(mode ==='light'?'dark':'light')}
+                className= {`ml-4 flex items-center justify-center rounded-full ${mode==='light'? "bg-dark text-light":"bg-light text-dark"}`}
+            >
+                {
+                    mode==="dark"?<SunIcon className={'fill-dark'}/>: <MoonIcon className={'fill-dark'} />
+                }
+            </button>
         </nav>
+        </div>
+
+        {
+            isOpen ? 
+
+            <motion.div className='min-w-[70vw] flex-col justify-between items-center fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 bg-dark dark:bg-light/75  rounded-lg backdrop-blur-md py-32 hidden lg:flex'
+                initial={{scale:0, opacity:0, x:"-50%", y:"-50%"}}
+                animate={{scale:1, opacity:1}}
+                transition={{duration:0.5}}            
+            >
+                <nav className='flex flex-col justify-center items-center'>
+                    <CustomMobileLink href={'/'} title={'Home'} className={''} toggle={handleClick}/>
+                    <CustomMobileLink href={'about'} title={'About'} className={''} toggle={handleClick}/>
+                    <CustomMobileLink href={'projects'}title={'Projects'}  className={''} toggle={handleClick}/>
+                    <CustomMobileLink href={'articles'} title={'Articles'} className={''} toggle={handleClick}/>
+                </nav>
+                <nav className='flex items-center justify-center flex-wrap my-2'>
+                <motion.a href={'www.twitter.com'} target={'blank'} whileHover={{y:-4}} whileTap={{scale:.9}}>
+                        <LinkedInIcon className={'w-5 mr-3 sm:mx-1'} />
+                </motion.a>
+                
+                <motion.a href={'www.twitter.com'} target={'blank'} whileHover={{y:-4}} whileTap={{scale:.9}}>
+                    <GithubIcon className={'w-5 mx-3 sm:mx-1 text-light dark:text-dark'} />
+                </motion.a>
+
+                <motion.a href={'www.twitter.com'} target={'blank'} whileHover={{y:-4}} whileTap={{scale:.9}}>
+                    <TwitterIcon className={'w-5 mx-3 sm:mx-1'} />
+                </motion.a>
+
+
+                <button 
+                    onClick={()=> setMode(mode ==='light'?'dark':'light')}
+                    className= {`ml-4 flex items-center justify-center rounded-full ${mode==='light'? "bg-dark text-light":"bg-light text-dark"}`}
+                >
+                    {
+                        mode==="dark"?<SunIcon className={'fill-dark'}/>: <MoonIcon className={'fill-dark'} />
+                    }
+                </button>
+            </nav>
+        </motion.div>
+            
+            : null
+        }
+        
         <div className='absolute left-[50%] top-2 translate-x-[-50%]'>
             <Logo />
         </div>
