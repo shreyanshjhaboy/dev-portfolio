@@ -2,7 +2,7 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import Logo from './Logo'
 import { useRouter } from 'next/router'
-import  { GithubIcon, LinkedInIcon, MoonIcon, PinterestIcon, SunIcon, TwitterIcon } from './Icons'
+import  { GithubIcon, LinkedInIcon, MoonIcon, SunIcon, TwitterIcon } from './Icons'
 import {motion} from 'framer-motion'
 import useThemeSwitcher from './hooks/useThemeSwitcher'
 const CustomLink = ({href, title, className=""})=>{
@@ -30,7 +30,7 @@ const CustomMobileLink = ({href, title, className="", toggle})=>{
     }
 
     return(
-        <button className={`${className} relative group my-2 text-light dark:text-dark `} onClick={handleClick}>
+        <button className={`${className} relative group my-2 text-light dark:text-dark text-lg`} onClick={handleClick}>
             {title}
             <span className={`h-[2px] inline-block
              bg-light absolute left-0 -bottom-0.5
@@ -56,9 +56,9 @@ const NavBar = () => {
         className='w-full px-32 py-8 font-medium flex items-center justify-between relative dark:text-light z-10 lg:px-16 md:px-12 sm:px-8'
     >
         <button className='flex-col justify-center items-center hidden lg:flex' onClick={handleClick}>
-            <span className={`bg-dark dark:bg-light transition-all duration-300 block h-0.5 w-6 rounded-xl -translate-y-0.5 ${isOpen? 'rotate-45 translate-y-1': '-translate-y-0.5'}`}></span>
+            <span className={`bg-dark dark:bg-light transition-all duration-300 block h-0.5 w-6 rounded-xl -translate-y-0.5 ${isOpen? 'rotate-45 translate-y-[5px]': '-translate-y-0.5'}`}></span>
             <span className={`bg-dark dark:bg-light transition-all duration-300 block h-0.5 w-6 rounded-xl my-0.5 ${isOpen ? 'opacity-0':'opacity-100'}`}></span>
-            <span className={`bg-dark dark:bg-light transition-all duration-300 block h-0.5 w-6 rounded-xl translate-y-0.5 ${isOpen? '-rotate-45 -translate-y-1': 'translate-y-0.5'}`}></span>
+            <span className={`bg-dark dark:bg-light transition-all duration-300 block h-0.5 w-6 rounded-xl translate-y-0.5 ${isOpen? '-rotate-45 -translate-y-[2px]': 'translate-y-0.5'}`}></span>
         </button>
 
         <div className='w-full flex justify-between items-center lg:hidden'>
@@ -70,15 +70,15 @@ const NavBar = () => {
             </nav>
             <nav className='flex items-center justify-center flex-wrap space-x-3'>
             <motion.a href={'www.twitter.com'} target={'blank'} whileHover={{y:-4}} whileTap={{scale:.9}}>
-                    <LinkedInIcon className={'w-5 mr-2'} />
+                    <LinkedInIcon className={' mr-1'} />
             </motion.a>
             
             <motion.a href={'www.twitter.com'} target={'blank'} whileHover={{y:-4}} whileTap={{scale:.9}}>
-                <GithubIcon className={'w-5 mx-2'} />
+                <GithubIcon className={' mx-1'} />
             </motion.a>
 
             <motion.a href={'www.twitter.com'} target={'blank'} whileHover={{y:-4}} whileTap={{scale:.9}}>
-                <TwitterIcon className={'w-5 mx-2'} />
+                <TwitterIcon className={' mx-1'} />
             </motion.a>
 
 
@@ -87,7 +87,7 @@ const NavBar = () => {
                 className= {`ml-4 flex items-center justify-center rounded-full ${mode==='light'? "bg-dark text-light":"bg-light text-dark"}`}
             >
                 {
-                    mode==="dark"?<SunIcon className={'fill-dark'}/>: <MoonIcon className={'fill-dark'} />
+                    mode==="dark"?<MoonIcon className={'fill-dark'}/>: <SunIcon className={'fill-dark'} />
                 }
             </button>
         </nav>
@@ -96,7 +96,7 @@ const NavBar = () => {
         {
             isOpen ? 
 
-            <motion.div className='min-w-[70vw] flex-col justify-between items-center fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 bg-dark dark:bg-light/75  rounded-lg backdrop-blur-md py-32 hidden lg:flex'
+            <motion.div className='min-w-[80vw] flex-col gap-4 justify-between items-center fixed top-[38%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 bg-dark dark:bg-light/75  rounded-lg backdrop-blur-md py-24 hidden lg:flex shadow-lg '
                 initial={{scale:0, opacity:0, x:"-50%", y:"-50%"}}
                 animate={{scale:1, opacity:1}}
                 transition={{duration:0.5}}            
@@ -109,15 +109,15 @@ const NavBar = () => {
                 </nav>
                 <nav className='flex items-center justify-center flex-wrap my-2'>
                 <motion.a href={'www.twitter.com'} target={'blank'} whileHover={{y:-4}} whileTap={{scale:.9}}>
-                        <LinkedInIcon className={'w-5 mr-3 sm:mx-1'} />
+                        <LinkedInIcon className={'md:w-6 mx-3'} />
                 </motion.a>
                 
                 <motion.a href={'www.twitter.com'} target={'blank'} whileHover={{y:-4}} whileTap={{scale:.9}}>
-                    <GithubIcon className={'w-5 mx-3 sm:mx-1 text-light dark:text-dark'} />
+                    <GithubIcon className={'md:w-6 mx-3 text-light dark:text-dark'} />
                 </motion.a>
 
                 <motion.a href={'www.twitter.com'} target={'blank'} whileHover={{y:-4}} whileTap={{scale:.9}}>
-                    <TwitterIcon className={'w-5 mx-3 sm:mx-1'} />
+                    <TwitterIcon className={'md:w-6 mx-3'} />
                 </motion.a>
 
 
@@ -126,7 +126,7 @@ const NavBar = () => {
                     className= {`ml-4 flex items-center justify-center rounded-full ${mode==='light'? "bg-dark text-light":"bg-light text-dark"}`}
                 >
                     {
-                        mode==="dark"?<SunIcon className={'fill-dark'}/>: <MoonIcon className={'fill-dark'} />
+                        mode==="dark"? <MoonIcon className={'fill-dark'}/>: <SunIcon className={'fill-dark'} />
                     }
                 </button>
             </nav>
